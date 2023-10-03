@@ -30,12 +30,12 @@ body { font-size: 80%; font-family: sans-serif; }
 <?php
 $id = $_GET["id"];
 if($stmt = $mysqli->prepare("SELECT id, tag, augentropfen, d3, bakterien, floradix, sango, 
-							b12, fischoel, zink, acerola, opc, bitter, essig, k2, bkomplex, zitrone 
+							b12, fischoel, zink, acerola, opc, bitter, essig, k2, bkomplex, zitrone, flohsamen 
 							FROM health WHERE id=?")) {
 	$stmt->bind_param("i", $id);
 	$stmt->execute();
 	$stmt->bind_result($id, $tag, $augentropfen, $d3, $bakterien, $floradix, $sango, $b12, $fischoel,
-						$zink, $acerola, $opc, $bitter, $essig, $k2, $bkomplex, $zitrone);
+						$zink, $acerola, $opc, $bitter, $essig, $k2, $bkomplex, $zitrone, $flohsamen);
 	$stmt->fetch();
 	$stmt->close();
 	$mysqli->close();
@@ -58,7 +58,8 @@ if($stmt = $mysqli->prepare("SELECT id, tag, augentropfen, d3, bakterien, florad
 	<input type="checkbox" name="essig" <?php if($essig == "YES") { echo "checked"; } ?>> Essig<br>
 	<input type="checkbox" name="k2" <?php if($k2 == "YES") { echo "checked"; } ?>> K2<br>
 	<input type="checkbox" name="bkomplex" <?php if($bkomplex == "YES") { echo "checked"; } ?>> BKomplex<br>
-	<input type="checkbox" name="zitrone" <?php if($zitrone == "YES") { echo "checked"; } ?>> Zitrone</p>
+	<input type="checkbox" name="flohsamen" <?php if($flohsamen == "YES") { echo "checked"; } ?>> FLS<br>
+	<input type="checkbox" name="zitrone" <?php if($zitrone == "YES") { echo "checked"; } ?>> Zitrone</p>	
 	<input type="hidden" name="id" value="<?php echo $id; ?>">
 	<input type="submit">
 </form>
@@ -72,7 +73,7 @@ if($stmt = $mysqli->prepare("SELECT id, tag, augentropfen, d3, bakterien, florad
 	if($stmt = $mysqli->prepare("UPDATE health
 				SET tag=?, augentropfen=?, d3=?, bakterien=?, floradix=?,
 				sango=?, b12=?, fischoel=?, zink=?, acerola=?, opc=?,
-				bitter=?, essig=?, k2=?, bkomplex=?, zitrone=? WHERE id=?")) {
+				bitter=?, essig=?, k2=?, bkomplex=?, zitrone=?, flohsamen=? WHERE id=?")) {
 		$id = (int)$_POST["id"];
 		$tag = $_POST["tag"];
 		$augentropfen = "NO";
@@ -134,9 +135,14 @@ if($stmt = $mysqli->prepare("SELECT id, tag, augentropfen, d3, bakterien, florad
 		$zitrone = "NO";
 		if(isset($_POST["zitrone"])){
 			$zitrone = "YES";
-		}
-		$stmt->bind_param("ssssssssssssssssi", $tag, $augentropfen, $d3, $bakterien, $floradix, $sango, $b12, $fischoel,
-						$zink, $acerola, $opc, $bitter, $essig, $k2, $bkomplex, $zitrone, $id);
+		}		
+		$flohsamen = "NO";
+		if(isset($_POST["flohsamen"])){
+			$flohsamen = "YES";
+		}		
+		
+		$stmt->bind_param("sssssssssssssssssi", $tag, $augentropfen, $d3, $bakterien, $floradix, $sango, $b12, $fischoel,
+						$zink, $acerola, $opc, $bitter, $essig, $k2, $bkomplex, $zitrone, $flohsamen, $id);
 		$stmt->execute();
 		$stmt->close();
 		$mysqli->close();

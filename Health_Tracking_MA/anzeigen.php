@@ -39,15 +39,15 @@ if(isset($_SESSION["login"]) && $_SESSION["login"] == "ok") {
 	  exit();
 	}
 		
-	if($ergebnis = $mysqli->prepare("SELECT id, tag, augentropfen, d3, bakterien, floradix, sango, b12, 
+	if($ergebnis = $mysqli->prepare("SELECT id, tag, augentropfen, d3, bakterien, floradix, sango, flohsamen, b12, 
 			fischoel, zink, acerola, opc, bitter, essig, k2, bkomplex, zitrone FROM health ORDER BY tag")) {
 		$ergebnis->execute();
-		$ergebnis->bind_result($id, $tag, $augentropfen, $d3, $bakterien, $floradix, $sango, $b12, 
+		$ergebnis->bind_result($id, $tag, $augentropfen, $d3, $bakterien, $floradix, $sango, $flohsamen, $b12, 
 			$fischoel, $zink, $acerola, $opc, $bitter, $essig, $k2, $bkomplex, $zitrone);
 		
 		echo "<table>\n";
 		echo "<tr><th>Tag</th><th>Tropen</th><th>D3</th><th>Bakterien</th><th>Floradix</th>
-		<th>Sango</th><th>B12</th><th>Fischöl</th><th>Zink</th><th>Acerola</th>
+		<th>Sango</th><th>FLS</th><th>B12</th><th>Fischöl</th><th>Zink</th><th>Acerola</th>
 		<th>OPC</th><th>Bitter</th><th>Essig</th><th>K2</th><th>BKomplex</th>
 		<th>Zitrone</th><th class=\"bearbeiten\">Edit</th><th class=\"loeschen\">Delete</th></tr>";
 		//echo "<table border='solid 5px'>";	
@@ -75,6 +75,11 @@ if(isset($_SESSION["login"]) && $_SESSION["login"] == "ok") {
 				echo "<td></td>";
 			}
 			if($sango == "YES") {
+				echo "<td class=\"genommen\"></td>";
+			} else {
+				echo "<td></td>";
+			}
+			if($flohsamen == "YES") {
 				echo "<td class=\"genommen\"></td>";
 			} else {
 				echo "<td></td>";
@@ -128,7 +133,7 @@ if(isset($_SESSION["login"]) && $_SESSION["login"] == "ok") {
 				echo "<td class=\"genommen\"></td>";
 			} else {
 				echo "<td></td>";
-			}
+			}			
 			
 			echo "<td class=\"bearbeiten\"><a href='bearbeiten.php?id=" . (int)$id . "'>Edit</a> </td>";
 			echo "<td class=\"loeschen\"><a href='loeschen.php?id=" . (int)$id . "'>Delete</a> </td>";			
