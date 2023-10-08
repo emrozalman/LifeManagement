@@ -40,17 +40,18 @@ if(isset($_SESSION["login"]) && $_SESSION["login"] == "ok") {
 	}
 		
 	if($ergebnis = $mysqli->prepare("SELECT id, tag, augentropfen, d3, bakterien, floradix, sango, flohsamen, b12, 
-			fischoel, zink, acerola, opc, bitter, essig, k2, bkomplex, zitrone FROM health ORDER BY tag")) {
+			fischoel, zink, acerola, opc, bitter, essig, k2, bkomplex, jod, zitrone FROM health ORDER BY tag")) {
 		$ergebnis->execute();
 		$ergebnis->bind_result($id, $tag, $augentropfen, $d3, $bakterien, $floradix, $sango, $flohsamen, $b12, 
-			$fischoel, $zink, $acerola, $opc, $bitter, $essig, $k2, $bkomplex, $zitrone);
+			$fischoel, $zink, $acerola, $opc, $bitter, $essig, $k2, $bkomplex, $jod, $zitrone);
 		
 		echo "<table>\n";
 		echo "<tr><th>Tag</th><th>Tropen</th><th>D3</th><th>Bakterien</th><th>Floradix</th>
 		<th>Sango</th><th>FLS</th><th>B12</th><th>Fischöl</th><th>Zink</th><th>Acerola</th>
-		<th>OPC</th><th>Bitter</th><th>Essig</th><th>K2</th><th>BKomplex</th>
-		<th>Zitrone</th><th class=\"bearbeiten\">Edit</th><th class=\"loeschen\">Delete</th></tr>";
-		//echo "<table border='solid 5px'>";	
+		<th>OPC</th><th>Bitter</th><th>Essig</th><th>K2</th><th>BKomplex</th><th>JOD</th>
+		<th>Zitrone</th><th>COUNT</th><th class=\"bearbeiten\">Edit</th><th class=\"loeschen\">Delete</th></tr>";
+		//echo "<table border='solid 5px'>";
+		$count = 0;
 		while($ergebnis->fetch()) {
 			echo "<tr>";			
 			echo "<td id=\"tag\"> $tag </td>";	
@@ -61,79 +62,103 @@ if(isset($_SESSION["login"]) && $_SESSION["login"] == "ok") {
 			}
 			if($d3 == "YES") {
 				echo "<td class=\"genommen\"></td>";
+				$count++;
 			} else {
 				echo "<td></td>";
 			}
 			if($bakterien == "YES") {
 				echo "<td class=\"genommen\"></td>";
+				$count++;
 			} else {
 				echo "<td></td>";
 			}
 			if($floradix == "YES") {
 				echo "<td class=\"genommen\"></td>";
+				$count++;
 			} else {
 				echo "<td></td>";
 			}
 			if($sango == "YES") {
 				echo "<td class=\"genommen\"></td>";
+				$count++;
 			} else {
 				echo "<td></td>";
 			}
 			if($flohsamen == "YES") {
 				echo "<td class=\"genommen\"></td>";
+				$count++;
 			} else {
 				echo "<td></td>";
 			}
 			if($b12 == "YES") {
 				echo "<td class=\"genommen\"></td>";
+				$count++;
 			} else {
 				echo "<td></td>";
 			}
 			if($fischoel == "YES") {
 				echo "<td class=\"genommen\"></td>";
+				$count++;
 			} else {
 				echo "<td></td>";
 			}
 			if($zink == "YES") {
 				echo "<td class=\"genommen\"></td>";
+				$count++;
 			} else {
 				echo "<td></td>";
 			}
 			if($acerola == "YES") {
 				echo "<td class=\"genommen\"></td>";
+				$count++;
 			} else {
 				echo "<td></td>";
 			}
 			if($opc == "YES") {
 				echo "<td class=\"genommen\"></td>";
+				$count++;
 			} else {
 				echo "<td></td>";
 			}
 			if($bitter == "YES") {
 				echo "<td class=\"genommen\"></td>";
+				$count++;
 			} else {
 				echo "<td></td>";
 			}
 			if($essig == "YES") {
 				echo "<td class=\"genommen\"></td>";
+				$count++;
 			} else {
 				echo "<td></td>";
 			}
 			if($k2 == "YES") {
 				echo "<td class=\"genommen\"></td>";
+				$count++;
 			} else {
 				echo "<td></td>";
 			}
 			if($bkomplex == "YES") {
 				echo "<td class=\"genommen\"></td>";
+				$count++;
+			} else {
+				echo "<td></td>";
+			}
+			if($jod == "YES") {
+				echo "<td class=\"genommen\"></td>";
+				$count++;
 			} else {
 				echo "<td></td>";
 			}
 			if($zitrone == "YES") {
 				echo "<td class=\"genommen\"></td>";
+				$count++;
 			} else {
 				echo "<td></td>";
-			}			
+			}
+			
+			echo "<td class=\"genommen\">$count</td>";
+			$count = 0;
 			
 			echo "<td class=\"bearbeiten\"><a href='bearbeiten.php?id=" . (int)$id . "'>Edit</a> </td>";
 			echo "<td class=\"loeschen\"><a href='loeschen.php?id=" . (int)$id . "'>Delete</a> </td>";			

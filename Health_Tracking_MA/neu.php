@@ -41,6 +41,7 @@ body { font-size: 80%; font-family: sans-serif; }
 	<input type="checkbox" name="k2"> K2<br>
 	<input type="checkbox" name="bkomplex"> BKomplex<br>
 	<input type="checkbox" name="flohsamen"> FLS<br>
+	<input type="checkbox" name="jod"> JOD<br>
 	<input type="checkbox" name="zitrone"> Zitrone</p>	
 	<input type="submit">
 </form>
@@ -49,8 +50,8 @@ body { font-size: 80%; font-family: sans-serif; }
 <?php
 } else {
 	if($stmt = $mysqli->prepare("INSERT INTO health (tag, augentropfen, d3, bakterien, floradix, sango, b12, 
-			fischoel, zink, acerola, opc, bitter, essig, k2, bkomplex, zitrone, flohsamen) 
-			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
+			fischoel, zink, acerola, opc, bitter, essig, k2, bkomplex, zitrone, flohsamen, jod) 
+			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
 		$tag = $_POST["tag"];
 		$augentropfen = "NO";
 		if(isset($_POST["augentropfen"])){
@@ -116,9 +117,13 @@ body { font-size: 80%; font-family: sans-serif; }
 		if(isset($_POST["flohsamen"])){
 			$flohsamen = "YES";
 		}
+		$jod = "NO";
+		if(isset($_POST["jod"])){
+			$jod = "YES";
+		}
 							
-		$stmt->bind_param("sssssssssssssssss", $tag, $augentropfen, $d3, $bakterien, $floradix, $sango, $b12, 
-			$fischoel, $zink, $acerola, $opc, $bitter, $essig, $k2, $bkomplex, $zitrone, $flohsamen);
+		$stmt->bind_param("ssssssssssssssssss", $tag, $augentropfen, $d3, $bakterien, $floradix, $sango, $b12, 
+			$fischoel, $zink, $acerola, $opc, $bitter, $essig, $k2, $bkomplex, $zitrone, $flohsamen, $jod);
 		$stmt->execute();
 		$stmt->close();
 		$mysqli->close();
