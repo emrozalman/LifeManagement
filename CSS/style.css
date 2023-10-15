@@ -1,0 +1,70 @@
+nav{
+background-color:#667788;
+}
+
+nav ul{
+list-style-type:none;
+margin:0;
+padding:0;
+display:flex;
+justify-content:initial;
+}
+				
+nav a{
+background-color:#667788;
+color:#ffffff;
+text-decoration:none;
+text-align:center;
+display:block;
+padding-left:15px;
+padding-right:15px;
+padding-top:0px;
+padding-bottom:0px;
+font-size:1.3em;
+border:none;
+border-top:5px solid transparent;
+border-bottom:5px solid transparent;
+}
+	
+nav a:hover,nav a:active{
+	border-bottom-color:#E54C21;
+	
+}
+
+table, th, td {
+	border: solid 2px black;
+	border-collapse: collapse;
+}
+
+th {
+	width: 65px;
+	background-color: yellow;
+}
+
+.genommen {
+	background-color: LightGreen;
+}
+#tag {
+	width: 110px;
+}
+.bearbeiten {
+	background-color: green;
+	color: white;
+	width: 45px;
+}
+.loeschen {
+	background-color: red;
+	color: white;
+	width: 45px;
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+	background-color: #f1f1f1;
+}
+
+.item {
+	background-color: yellow;
+	width: 800px;
+}
