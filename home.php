@@ -39,6 +39,8 @@ if(isset($_SESSION["login"]) && $_SESSION["login"] == "ok") {
 		</ul>
 	</nav><br>
 	
+	<div class="container">
+	
 	<?php
 	$mysqli = new mysqli("mysql09.manitu.net", "u88061", "yTDkTZAsJVmBkuhv", "db88061");
 	//$mysqli = new mysqli("localhost", "root", "", "myDB");
@@ -49,9 +51,46 @@ if(isset($_SESSION["login"]) && $_SESSION["login"] == "ok") {
 		
 	if($ergebnis = $mysqli->prepare("SELECT id, task, description, priority, category FROM tasks ORDER BY priority")) {
 		$ergebnis->execute();
-		$ergebnis->bind_result($id, $task, $description, $priority, $category);
+		$ergebnis->bind_result($id, $task, $description, $priority, $category);		
 		
-		echo "<div class='container'>";
+		echo "<div class='item'><ul>\n";
+		while($ergebnis->fetch()) {
+			echo "<li class='$category'><strong>"	
+				. "($priority) "
+				. $task
+				. "</strong>: "
+				. $description
+				. "| <a href='Tasks/bearbeiten.php?id="
+				. (int)$id
+				. "'>bearbeiten</a> "
+				. "| <a href='Tasks/loeschen.php?id="
+				. (int)$id
+				. "'>löschen</a>"
+				. "</li>";
+		}
+		echo "</ul>\n";		
+		
+		$ergebnis->close();
+	}
+	
+	$mysqli->close();	
+	?>
+	
+	<p><a href='Tasks/neu.php'>Aufgabe hinzufügen</a></p> 
+	</div>
+	
+	<?php
+	$mysqli = new mysqli("mysql09.manitu.net", "u88061", "yTDkTZAsJVmBkuhv", "db88061");
+	//$mysqli = new mysqli("localhost", "root", "", "myDB");
+	if ($mysqli->connect_error) {
+	  echo "Fehler bei der Verbindung: " . mysqli_connect_error();
+	  exit();
+	}
+		
+	if($ergebnis = $mysqli->prepare("SELECT id, task, description, priority, category FROM tasks ORDER BY priority")) {
+		$ergebnis->execute();
+		$ergebnis->bind_result($id, $task, $description, $priority, $category);	
+		
 		echo "<div class='item'><ul>\n";
 		while($ergebnis->fetch()) {
 			echo "<li class='$category'><strong>"	
@@ -68,20 +107,55 @@ if(isset($_SESSION["login"]) && $_SESSION["login"] == "ok") {
 				. "</li>";
 		}
 		echo "</ul>\n";	
-		
+				
 		$ergebnis->close();
 	}
 	
 	$mysqli->close();	
 	?>
 	
-	<p><a href="Tasks/neu.php">Aufgabe hinzufügen</a></p>
+	<p><a href='Tasks/neu.php'>Aufgabe hinzufügen</a></p> 
 	</div>
 	
-	<div class="item">Sama</div>
-	<div class="item">Geeti</div>
-	<div class="item">Mona</div>
-	<div class="item">K..</div>
+	<?php
+	$mysqli = new mysqli("mysql09.manitu.net", "u88061", "yTDkTZAsJVmBkuhv", "db88061");
+	//$mysqli = new mysqli("localhost", "root", "", "myDB");
+	if ($mysqli->connect_error) {
+	  echo "Fehler bei der Verbindung: " . mysqli_connect_error();
+	  exit();
+	}
+				
+	if($ergebnis = $mysqli->prepare("SELECT id, task, description, priority, category FROM tasks ORDER BY priority")) {
+		$ergebnis->execute();
+		$ergebnis->bind_result($id, $task, $description, $priority, $category);		
+		
+		echo "<div class='item'><ul>\n";
+		while($ergebnis->fetch()) {
+			echo "<li class='$category'><strong>"	
+				. "($priority) "
+				. $task
+				. "</strong>: "
+				. $description
+				. "| <a href='Tasks/bearbeiten.php?id="
+				. (int)$id
+				. "'>bearbeiten</a> "
+				. "| <a href='Tasks/loeschen.php?id="
+				. (int)$id
+				. "'>löschen</a>"
+				. "</li>";
+		}
+		echo "</ul>\n";	
+				
+		$ergebnis->close();
+	}
+	
+	$mysqli->close();	
+	?>
+	
+	<p><a href='Tasks/neu.php'>Aufgabe hinzufügen</a></p> 
+	</div>	
+	
+	</div>
 		
 </body>
 </html>
