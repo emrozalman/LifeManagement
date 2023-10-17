@@ -87,7 +87,7 @@ if(isset($_SESSION["login"]) && $_SESSION["login"] == "ok") {
 	  exit();
 	}
 		
-	if($ergebnis = $mysqli->prepare("SELECT id, task, description, priority, category FROM tasks ORDER BY priority")) {
+	if($ergebnis = $mysqli->prepare("SELECT id, task, description, priority, category FROM tasksSGM ORDER BY priority")) {
 		$ergebnis->execute();
 		$ergebnis->bind_result($id, $task, $description, $priority, $category);	
 		
@@ -98,10 +98,10 @@ if(isset($_SESSION["login"]) && $_SESSION["login"] == "ok") {
 				. $task
 				. "</strong>: "
 				. $description
-				. "| <a href='Tasks/bearbeiten.php?id="
+				. "| <a href='Tasks/bearbeitensgm.php?id="
 				. (int)$id
 				. "'>bearbeiten</a> "
-				. "| <a href='Tasks/loeschen.php?id="
+				. "| <a href='Tasks/loeschensgm.php?id="
 				. (int)$id
 				. "'>löschen</a>"
 				. "</li>";
@@ -114,7 +114,7 @@ if(isset($_SESSION["login"]) && $_SESSION["login"] == "ok") {
 	$mysqli->close();	
 	?>
 	
-	<p><a href='Tasks/neu.php'>Aufgabe hinzufügen</a></p> 
+	<p><a href='Tasks/neusgm.php'>Aufgabe hinzufügen</a></p> 
 	</div>
 	
 	<?php
